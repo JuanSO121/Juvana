@@ -1,0 +1,1 @@
+import { CategoriaRepository } from "../repositories/categoria.repository";

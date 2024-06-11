@@ -1,0 +1,1 @@
+import { PalabrasPorCategoriaRepository } from "../repositories/palabrasPorCategoria.repository";

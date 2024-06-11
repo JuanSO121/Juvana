@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Chat Room</title>
+</head>
+<body>
+  <input type="text" id="roomName" placeholder="Nombre de la sala">
+  <input type="text" id="userName" placeholder="Tu nombre de usuario">
+  <button onclick="joinRoom()">Unirse a la sala</button>
+  <br>
+  <textarea id="messageInput" rows="4" cols="50" placeholder="Escribe tu mensaje"></textarea>
+  <button onclick="sendMessage()">Enviar mensaje</button>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function joinRoom() {
+      const roomName = document.getElementById('roomName').value;
+      const userName = document.getElementById('userName').value;
+      socket.emit('joinRoom', roomName, userName);
+    }
+
+    function sendMessage() {
+      const roomName = document.getElementById('roomName').value;
+      const userName = document.getElementById('userName').value;
+      const message = document.getElementById('messageInput').value;
+      socket.emit('sendMessage', roomName, userName, message);
+    }
+
+    socket.on('message', (data) => {
+      console.log(data);
+      // Aquí puedes manejar el mensaje recibido, por ejemplo, mostrándolo en la pantalla
+    });
+  </script>
+</body>
+</html>

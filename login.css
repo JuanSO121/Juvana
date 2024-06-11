@@ -1,0 +1,238 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.4em;
+    background-color: #171717;
+    border-radius: 25px;
+    transition: .4s ease-in-out;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .form:hover {
+    transform: scale(1.05);
+    border: 1px solid black;
+  }
+  
+  #heading {
+    text-align: center;
+    margin: 2em;
+    color: rgb(255, 255, 255);
+    font-size: 1.2em;
+  }
+  
+  .field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border-radius: 25px;
+    padding: 0.6em;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #171717;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+  }
+  
+  .input-icon {
+    height: 1.3em;
+    width: 1.3em;
+    fill: white;
+  }
+  
+  .input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #d3d3d3;
+  }
+  
+  .form .btn {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 0.2em;
+    margin-bottom: 1.5em;
+  }
+  
+  .button1 {
+    padding: 0.5em;
+    padding-left: 1.1em;
+    padding-right: 1.1em;
+    border-radius: 5px;
+    margin-right: 0.5em;
+    border: none;
+    outline: none;
+    transition: .4s ease-in-out;
+    background-color: #252525;
+    color: white;
+  }
+  
+  .button1:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  .button2 {
+    padding: 0.5em;
+    padding-left: 2.3em;
+    padding-right: 2.3em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: .4s ease-in-out;
+    background-color: #252525;
+    color: white;
+  }
+  
+  .button2:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  .button3 {
+    margin-bottom: 3em;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: .4s ease-in-out;
+    background-color: #252525;
+    color: white;
+  }
+  
+  .button3:hover {
+    background-color: red;
+    color: white;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #d5d0d6;
+}
+
+.box {
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+.dropdown {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    background: #7f0099;
+    color: #fff;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.dropdown .left-icon,
+.dropdown .right-icon {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 15px;
+    height: 5px;
+    background: #fff;
+    border-radius: 40px;
+    transition: .5s;
+}
+
+.dropdown .left-icon {
+    left: 7px;
+    transform: rotate(45deg);
+}
+
+.dropdown.active .left-icon {
+    transform: rotate(135deg);
+}
+
+.dropdown .right-icon {
+    transform: rotate(-45deg);
+}
+
+.dropdown.active .right-icon {
+    transform: rotate(-135deg);
+}
+
+.dropdown .items {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    margin-top: 63px;
+    overflow: hidden;
+    visibility: hidden;
+    transition: .5s;
+}
+
+.dropdown.active .items {
+    visibility: visible;
+}
+
+.dropdown .items a {
+    position: relative;
+    left: 100%;
+    display: flex;
+    font-size: 20px;
+    background: #fff;
+    color: #7f0099;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 2.5px;
+    z-index: 1;
+    overflow: hidden;
+    transition: .5s;
+    transition-delay: calc(60ms * var(--i));
+}
+
+.dropdown.active .items a {
+    left: 0;
+}
+
+.dropdown .items a:hover {
+    color: #fff;
+}
+
+.dropdown .items a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #bb00e0;
+    z-index: -1;
+    border-radius: inherit;
+    transform: rotate(160deg);
+    transform-origin: right;
+    transition: .5s;
+}
+
+.dropdown .items a:hover span {
+    transform: rotate(0deg);
+}

@@ -1,0 +1,1 @@
+import { PalabraRepository } from "../repositories/palabra.repository";

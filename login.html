@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../websockets/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <form class="form" action="/join-room" method="POST"> <!-- Ajusta la acción según tu ruta de unirse a una sala -->
+        <p id="heading">Join Room</p>
+        <div class="field">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <!-- Icono de usuario -->
+            </svg>
+            <input autocomplete="off" name="username" placeholder="Username" class="input-field" type="text">
+        </div>
+
+        <div class="box">
+            <div class="dropdown">Select Room
+                <span class="left-icon"></span>
+                <span class="right-icon"></span>
+                <select name="roomName" class="items" id="roomSelect"> <!-- Selecciona la sala -->
+                    <!-- Las opciones de la sala se generarán dinámicamente aquí -->
+                </select>
+            </div>
+        </div>
+        
+        <button type="submit" class="button1">Join Room</button>
+    </form>
+    <script src="script.js"></script>
+    <script>
+        // Realizar una solicitud AJAX para obtener las salas disponibles
+        const roomSelect = document.getElementById('roomSelect');
+        fetch('/saladejuego')
+            .then(response => response.json())
+            .then(salas => {
+                salas.forEach(sala => {
+                    const option = document.createElement('option');
+                    option.value = sala.nombre; // Suponiendo que 'nombre' es el nombre de la sala
+                    option.textContent = sala.nombre; // Suponiendo que 'nombre' es el nombre de la sala
+                    roomSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al obtener las salas:', error));
+    </script>
+</body>
+</html>
