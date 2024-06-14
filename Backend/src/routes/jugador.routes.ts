@@ -1,32 +1,19 @@
-// import * as express from "express";
-// import {jugadorController} from "../controllers/jugador.controller";
+// routes/jugador.ts
+import { Router } from 'express';
+import { JugadorRepository } from '../repositories/jugador.repository';
 
-// const Router = express.Router();
-// const jugadorController = new jugadorController();
+const router = Router();
+const jugadorRepository = new JugadorRepository();
 
-// Router.get(
-//     "/jugador/:id",
-//     jugadorController.getById
-// );
+router.post('/join', async (req, res) => {
+    const { userName, roomName } = req.body;
 
-// Router.post(
-//     "/jugador",
-//     jugadorController.save
-// );
+    try {
+        const jugador = await jugadorRepository.create({ nombre: userName, puntaje: 0, salade_juego_id: roomName });
+        res.json({ jugadorId: jugador.id });
+    } catch (error) {
+        res.status(500).send('Error joining room');
+    }
+});
 
-// Router.put(
-//     "/jugador/:id",
-//     jugadorController.update
-// );
-
-// Router.delete(
-//     "/jugador/:id",
-//     jugadorController.delete
-// );
-
-// Router.get(
-//     "/jugadores",
-//     jugadorController.getAll
-// );
-
-// export { Router as jugadorRouter };
+export default router;
