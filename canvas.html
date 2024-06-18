@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictionary - Dibujo en Tiempo Real</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pictionary - Dibujo en Tiempo Real</h1>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        let drawing = false;
+
+        // Conectarse al servidor WebSocket
+        const ws = new WebSocket('ws://localhost:3000/ws/room/Sala'); // Ajusta la URL según la configuración de tu servidor
+
+        canvas.addEventListener('mousedown', (event) => {
+            drawing = true;
+            const position = getMousePos(canvas, event);
+            context.beginPath();
+            context.moveTo(position.x, position.y);
+            ws.send(JSON.stringify({ type: 'DRAW_START', x: position.x, y: position.y }));
+        });
+
+        canvas.addEventListener('mousemove', (event) => {
+            if (!drawing) return;
+            const position = getMousePos(canvas, event);
+            context.lineTo(position.x, position.y);
+            context.stroke();
+            ws.send(JSON.stringify({ type: 'DRAW_MOVE', x: position.x, y: position.y }));
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+            context.closePath();
+            ws.send(JSON.stringify({ type: 'DRAW_END' }));
+        });
+
+        canvas.addEventListener('mouseout', () => {
+            drawing = false;
+            context.closePath();
+            ws.send(JSON.stringify({ type: 'DRAW_END' }));
+        });
+
+        function getMousePos(canvas, event) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            };
+        }
+
+        // Escuchar mensajes del servidor WebSocket
+        ws.onmessage = function (event) {
+            const msg = JSON.parse(event.data);
+
+            if (msg.type === 'DRAW_START' || msg.type === 'DRAW_MOVE' || msg.type === 'DRAW_END') {
+                drawOnCanvas(msg);
+            }
+        };
+
+        function drawOnCanvas(message) {
+            if (message.type === 'DRAW_START') {
+                context.beginPath();
+                context.moveTo(message.x, message.y);
+            } else if (message.type === 'DRAW_MOVE') {
+                context.lineTo(message.x, message.y);
+                context.stroke();
+            } else if (message.type === 'DRAW_END') {
+                context.closePath();
+            }
+        }
+    </script>
+</body>
+</html>

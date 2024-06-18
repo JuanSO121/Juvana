@@ -118,6 +118,7 @@ module.exports = (expressWs) => {
             if (room.players.filter(player => player !== currentPlayer).every(player => player.hasGuessed)) {
                 finishTurn(roomName);
             }
+            
         } else {
             room.players.forEach(client => {
                 if (client.ws.readyState === client.ws.OPEN) {
