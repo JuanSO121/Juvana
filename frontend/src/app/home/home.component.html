@@ -1,0 +1,14 @@
+<div>
+    <label for="userName">Nombre de usuario:</label>
+    <input type="text" id="userName" [(ngModel)]="userName">
+  </div>
+  
+  <div>
+    <label for="room">Selecciona una sala:</label>
+    <select id="room" [(ngModel)]="selectedRoom">
+      <option *ngFor="let room of rooms" [value]="room">{{ room }}</option>
+    </select>
+  </div>
+  
+  <button (click)="enterRoom()">Entrar</button>
+  

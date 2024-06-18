@@ -1,4 +1,4 @@
-import { CategoriaResponse } from "../dto/categoria.dto";
+import { CategoriaResponse } from "./categoria.dto";
 
 export class SaladeJuegoResponse{
     id: number;

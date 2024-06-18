@@ -22,8 +22,8 @@ app.use(cors());
 app.use(express.json());
 app.use(errorHandler);
 app.use("/api", palabraRouter);
-app.use("/categoria", categoriaRouter);
-app.use("/room", saladeJuegoRouter);
+app.use("/api", categoriaRouter);
+app.use("/api", saladeJuegoRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/ws', websocketRouter);
